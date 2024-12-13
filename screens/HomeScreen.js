@@ -1,10 +1,32 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
+import FloatingButton from '../components/FloatingButton';
+
 
 const HomeScreen = () => (
-  <View>
-    <Text>Welcome to Home</Text>
+  <View style={styles.container2}>
+  <View style={styles.container}>
+    <Text style={styles.heading}>Welcome to Home</Text>
+    {/* Use FloatingButton here */}
+  <FloatingButton />
+  </View>
   </View>
 );
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#f5f5f5',
+  },
+  container2: {
+    flex: 1,
+  },
+  heading: {
+    fontSize: 24,
+    fontWeight: 'bold',
+  },
+});
 
 export default HomeScreen;
