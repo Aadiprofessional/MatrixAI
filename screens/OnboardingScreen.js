@@ -80,7 +80,7 @@ const OnboardingScreen = ({ onFinish }) => {
             </View>
             <TouchableOpacity style={styles.button} onPress={handleNext}>
                 <Text style={styles.buttonText}>
-                    {currentIndex === slides.length - 1 ? "Finish" : "Next"}
+                    {currentIndex === slides.length - 1 ? "Enjoy" : "Next"}
                 </Text>
             </TouchableOpacity>
         </View>

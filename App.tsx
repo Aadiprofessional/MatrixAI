@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View } from 'react-native';
 import OnboardingScreen from './screens/OnboardingScreen';
-import HomeScreen from './screens/HomeScreen';
+import AppNavigator from './screens/AppNavigator'; // Correct navigator import
 
 
 const App = () => {
@@ -10,7 +10,7 @@ const App = () => {
   return (
     <View style={{ flex: 1 }}>
       {onboardingCompleted ? (
-        <HomeScreen />
+        <AppNavigator />
       ) : (
         <OnboardingScreen onFinish={() => setOnboardingCompleted(true)} />
       )}

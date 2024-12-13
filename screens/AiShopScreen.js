@@ -1,10 +1,10 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 
-const HomeScreen = () => (
+const AIShopScreen = () => (
   <View>
-    <Text>Welcome to Home</Text>
+    <Text>Welcome to AI Shop</Text>
   </View>
 );
 
-export default HomeScreen;
+export default AIShopScreen;
