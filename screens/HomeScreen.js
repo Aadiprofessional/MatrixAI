@@ -7,9 +7,10 @@ const HomeScreen = () => (
   <View style={styles.container2}>
   <View style={styles.container}>
     <Text style={styles.heading}>Welcome to Home</Text>
-    {/* Use FloatingButton here */}
-  <FloatingButton />
+
+ 
   </View>
+     <FloatingButton />
   </View>
 );
 

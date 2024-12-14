@@ -1,53 +1,55 @@
 import React, { useState, useEffect } from 'react';
 import { TouchableOpacity, StyleSheet, Image, View, Text } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 import * as Animatable from 'react-native-animatable';
+import ChatSlider from './ChatSlider';
 
 const FloatingButton = () => {
-  const navigation = useNavigation();
-  const [isVisible, setIsVisible] = useState(false);
-  const [text, setText] = useState('');
+  const [isSliderVisible, setIsSliderVisible] = useState(false);
+  const [typingText, setTypingText] = useState('');
 
+  // Typing effect that runs when the screen is navigated to
   useEffect(() => {
-    // Show the popup animation when the component mounts
-    setIsVisible(true);
-
-    // Typing effect simulation
     const targetText = 'Ask Matrix Bot';
     let index = 0;
+    setTypingText(''); // Clear text before restarting animation
     const interval = setInterval(() => {
-      setText(targetText.slice(0, index + 1));
+      setTypingText(targetText.slice(0, index + 1));
       index += 1;
-      if (index === targetText.length) {
-        clearInterval(interval);
-      }
+      if (index > targetText.length) clearInterval(interval);
     }, 100);
-    
-    return () => clearInterval(interval); // Clear the interval when component unmounts
-  }, []);
 
-  const onPress = () => {
-    navigation.navigate('BotScreen');  // Navigate to BotScreen when clicked
+    return () => clearInterval(interval); // Cleanup on unmount
+  }, []); // Runs every time the component is rendered
+
+  // Toggle ChatSlider visibility
+  const toggleSlider = () => {
+    setIsSliderVisible((prev) => !prev);
   };
 
   return (
     <View style={styles.container}>
-      {isVisible && (
+      {/* Typing Animation Above Button */}
+      {typingText !== '' && (
         <Animatable.View animation="fadeInUp" duration={800} style={styles.popup}>
-          <View style={styles.dialogBox}>
+          <View style={styles.speechBubble}>
             <Animatable.Text animation="fadeIn" style={styles.typingText}>
-              {text}
+              {typingText}
             </Animatable.Text>
+            <View style={styles.triangle} />
           </View>
         </Animatable.View>
       )}
-      
-      <TouchableOpacity onPress={onPress} style={styles.floatingButton}>
+
+      {/* Floating Button */}
+      <TouchableOpacity onPress={toggleSlider} style={styles.floatingButton}>
         <Image
           source={require('../assets/robot.png')} // Replace with your image path
           style={styles.buttonImage}
         />
       </TouchableOpacity>
+
+      {/* ChatSlider Component */}
+      <ChatSlider isVisible={isSliderVisible} toggleModal={toggleSlider} />
     </View>
   );
 };
@@ -69,30 +71,48 @@ const styles = StyleSheet.create({
     backgroundColor: '#007BFF',
     justifyContent: 'center',
     alignItems: 'center',
-    zIndex: 1000,  // Ensures the button is on top of other components
+    zIndex: 100,
+    shadowColor: '#007BFF',
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 1,
+    shadowRadius: 10,
+    elevation: 10,
   },
   buttonImage: {
-    width: 40,   // Adjust the width of the image
-    height: 40,  // Adjust the height of the image
-    resizeMode: 'contain', // This ensures the image retains its aspect ratio
+    width: 60,
+    height: 60,
+    resizeMode: 'contain',
   },
   popup: {
     position: 'absolute',
-    bottom: 160, // Adjust to show above the button
+    bottom: 160, // Position above the floating button
     right: 20,
     zIndex: 999,
   },
-  dialogBox: {
+  speechBubble: {
     backgroundColor: '#FFFFFF',
-    padding: 10,
     borderRadius: 15,
-    maxWidth: 250,
+    padding: 10,
+    maxWidth: 200,
     shadowColor: '#000',
-    shadowOpacity: 0.3,
-    shadowRadius: 4,
+    shadowOpacity: 0.2,
+    shadowRadius: 5,
     shadowOffset: { width: 0, height: 2 },
     borderColor: '#ccc',
     borderWidth: 1,
+  },
+  triangle: {
+    position: 'absolute',
+    bottom: -10,
+    right: 20,
+    width: 0,
+    height: 0,
+    borderLeftWidth: 10,
+    borderRightWidth: 10,
+    borderTopWidth: 10,
+    borderLeftColor: 'transparent',
+    borderRightColor: 'transparent',
+    borderTopColor: '#85858549',
   },
   typingText: {
     fontSize: 14,
