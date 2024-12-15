@@ -1,0 +1,15 @@
+diff --git a/node_modules/react-native/Libraries/vendor/emitter/EventEmitter.js b/node_modules/react-native/Libraries/vendor/emitter/EventEmitter.js
+index 1087654..5431625 100644
+--- a/node_modules/react-native/Libraries/vendor/emitter/EventEmitter.js
++++ b/node_modules/react-native/Libraries/vendor/emitter/EventEmitter.js
+@@ -35,8 +35,8 @@ interface Registration<TArgs> {
+   +remove: () => void;
+ }
+ 
+-type Registry<TEventToArgsMap: {...}> = {
+-  [K in keyof TEventToArgsMap]: Set<Registration<TEventToArgsMap[K]>>,
++type Registry<TEventToArgsMap> = {
++  [K in keyof TEventToArgsMap]: Set<Registration<TEventToArgsMap[K]>>;
+ };
+ 
+ /**

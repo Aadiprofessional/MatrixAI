@@ -24,7 +24,7 @@ const App = () => {
             {/* Main App Screen with Bottom Tab Navigation */}
             <Stack.Screen name="Main" component={AppNavigator} options={{ headerShown: false }}/>
             {/* BotScreen is another screen in the stack */}
-            <Stack.Screen name="BotScreen" component={BotScreen} options={{ headerShown: false }} />
+            <Stack.Screen name="botScreen" component={BotScreen} options={{ headerShown: false }} />
           </>
         )}
       </Stack.Navigator>
